@@ -28,8 +28,11 @@ public class Params {
 		// the rate of agent cooperating with different type
 		public final static double IMMIGRANTCHANGECOOPERATEWITHDIFFERENT = 0.50;
 		
+		// the number of Region
+		public final static int NUMOFREGION = 4;
+		
 		// the total time tick
-		public final static int TOTALTICK = 2000;
+		public final static int TOTALTICK = 5000;
 		
 		// the size of the world
 		public final static int SIZE = 50;

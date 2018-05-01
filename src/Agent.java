@@ -27,6 +27,10 @@ public class Agent {
 		return this.region;
 	}
 	
+	public Strategy getStrategy(){
+		return this.strategy;
+	}
+	
 	// reset the ptr after reproducing
 	public void resetPtr(){
 		ptr = Params.INITIALPTR;
@@ -59,15 +63,17 @@ public class Agent {
 				
 				// agent who is cooperated by others gains ptr
 				neighbor.gainPtr();
+				
+				cooperateTime += 1;
 			}
 			break;
 		// cooperate with same type only
 		case CD:
 			for(Agent neighbor : neighbors){
-				cooperateTime = 1;
 				if(neighbor.getRegion() == this.region){
 					this.costPtr();
 					neighbor.gainPtr();
+					cooperateTime += 1;
 				}
 			}
 			break;
@@ -77,6 +83,7 @@ public class Agent {
 				if(neighbor.getRegion() != this.region){
 					this.costPtr();
 					neighbor.gainPtr();
+					cooperateTime += 1;
 				}
 			}
 		default:
@@ -89,20 +96,27 @@ public class Agent {
 	 * Agent will reproduce a new agent
 	 * if there is a space near by him
 	 * @return reproduceTime: the times of reproduction behavior
+	 * @throws Exception 
 	 */
-	public int reproduce(){
+	public int reproduce() throws Exception{
 		int reproduceTime = 0;
 		Random random = new Random();
 		if(random.nextDouble() < ptr){
-			reproduceTime = 1;
+			
 			
 			// select a empty block randomly
 			ArrayList<Block> emptyNeighbors = block.getEmptyNeighbors();
-			Block emptyBlock = emptyNeighbors.get(
-					random.nextInt(emptyNeighbors.size()));
+			if(emptyNeighbors.size() > 0){
+				Block emptyBlock = emptyNeighbors.get(
+						random.nextInt(emptyNeighbors.size()));
+				
+				if(emptyBlock != null){
+					//TODO controller should make a child
+					makeChild(emptyBlock, this);
+					reproduceTime += 1;
+				}
+			}
 			
-			//if(emptyBlock != null)
-				//TODO controller should make a child
 		}
 		return reproduceTime;
 	}
@@ -112,6 +126,26 @@ public class Agent {
 	 */
 	public void die(){
 		this.block.setEmpty();
+	}
+	
+	public void makeChild(Block block, Agent agent) throws Exception{
+		Random random = new Random();
+		Strategy childStrategy;
+		int childRegion;
+		
+		// select a strategy and a region based on mutation rate
+		if(random.nextDouble() < Params.MUTATIONRATE){
+			childStrategy = Strategy.randomSelectStrategy();
+			childRegion = random.nextInt(Params.NUMOFREGION);
+		}else{
+			childStrategy = agent.getStrategy();
+			childRegion = agent.getRegion();
+		}
+		
+		// generate a child agent
+		Agent childAgent = new Agent(childStrategy, childRegion, block, controller);
+		block.setAgent(childAgent);
+		controller.addWorldAgents(childAgent);
 	}
 	
 	
