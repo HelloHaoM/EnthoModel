@@ -112,7 +112,7 @@ public class Agent {
 				
 				if(emptyBlock != null){
 					//TODO controller should make a child
-					makeChild(emptyBlock, this);
+					reproduceChild(emptyBlock, this);
 					reproduceTime += 1;
 				}
 			}
@@ -128,7 +128,7 @@ public class Agent {
 		this.block.setEmpty();
 	}
 	
-	public void makeChild(Block block, Agent agent) throws Exception{
+	public void reproduceChild(Block block, Agent agent) throws Exception{
 		Random random = new Random();
 		Strategy childStrategy;
 		int childRegion;
