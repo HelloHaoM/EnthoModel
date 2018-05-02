@@ -12,6 +12,7 @@ public class World {
 	private int size = Params.SIZE;
 	private Block[][] blockWorld = new Block[size][size];
 	private ArrayList<Block> emptyBlocks = new ArrayList<Block>();
+	private ArrayList<Agent> worldAgents = new ArrayList<Agent>();
 	
 	
 	public World(){
@@ -33,6 +34,18 @@ public class World {
 	
 	public void setOccupied(Block block){
 		emptyBlocks.remove(block);
+	}
+	
+	public ArrayList<Agent> getWorldAgents(){
+		return this.worldAgents;
+	}
+	
+	public void addAgent(Agent agent){
+		worldAgents.add(agent);
+	}
+	
+	public void removeAgent(Agent agent){
+		worldAgents.remove(agent);
 	}
 	
 	/**

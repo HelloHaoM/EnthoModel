@@ -25,7 +25,7 @@ public class Controller {
 	 * 在MainSimulator函数里，循环调用tick函数多次，然后输出csv即可
 	 */
 	
-	private ArrayList<Agent> worldAgents = new ArrayList<Agent>();
+	//private ArrayList<Agent> worldAgents = new ArrayList<Agent>();
 	private World world;
 	
 	public Controller(World world){
@@ -34,7 +34,7 @@ public class Controller {
 	
 	public int getNumOfCC(){
 		int numOfCC = 0;
-		for(Agent agent : worldAgents){
+		for(Agent agent : world.getWorldAgents()){
 			if(agent.getStrategy().equals(Strategy.CC))
 				numOfCC++;
 		}
@@ -43,7 +43,7 @@ public class Controller {
 	
 	public int getNumOfCD(){
 		int numOfCD = 0;
-		for(Agent agent : worldAgents){
+		for(Agent agent : world.getWorldAgents()){
 			if(agent.getStrategy().equals(Strategy.CD))
 				numOfCD++;
 		}
@@ -52,7 +52,7 @@ public class Controller {
 	
 	public int getNumOfDC(){
 		int numOfDC = 0;
-		for(Agent agent : worldAgents){
+		for(Agent agent : world.getWorldAgents()){
 			if(agent.getStrategy().equals(Strategy.DC))
 				numOfDC++;
 		}
@@ -61,7 +61,7 @@ public class Controller {
 	
 	public int getNumOfDD(){
 		int numOfDD = 0;
-		for(Agent agent : worldAgents){
+		for(Agent agent : world.getWorldAgents()){
 			if(agent.getStrategy().equals(Strategy.DD))
 				numOfDD++;
 		}
@@ -102,7 +102,7 @@ public class Controller {
 			// generate a new agent
 			Agent immgrant = new Agent(strategy, region, emptyBlock, this);
 			emptyBlock.setAgent(immgrant);
-			worldAgents.add(immgrant);
+			world.addAgent(immgrant);
 		}
 	}
 	
@@ -112,7 +112,7 @@ public class Controller {
 	private void cooperate(){
 		// create a list that agents ordered randomly
 		ArrayList<Agent> shuffleAgentList = new ArrayList<Agent>();
-		shuffleAgentList.addAll(worldAgents);
+		shuffleAgentList.addAll(world.getWorldAgents());
 		Collections.shuffle(shuffleAgentList);
 		
 		Block occupiedNeighborBlock = null;
@@ -129,7 +129,7 @@ public class Controller {
 	private void reproduce() throws Exception{
 		// create a list that agents ordered randomly
 		ArrayList<Agent> shuffleAgentList = new ArrayList<Agent>();
-		shuffleAgentList.addAll(worldAgents);
+		shuffleAgentList.addAll(world.getWorldAgents());
 		Collections.shuffle(shuffleAgentList);
 		
 		Block emptyNeighborsBlock = null;
@@ -162,7 +162,7 @@ public class Controller {
 		// generate a child agent
 		Agent childAgent = new Agent(childStrategy, childRegion, block, this);
 		block.setAgent(childAgent);
-		worldAgents.add(childAgent);
+		world.addAgent(childAgent);
 	}
 
 	/**
@@ -172,13 +172,13 @@ public class Controller {
 		Random random = new Random();
 		
 		ArrayList<Agent> shuffleAgentList = new ArrayList<Agent>();
-		shuffleAgentList.addAll(worldAgents);
+		shuffleAgentList.addAll(world.getWorldAgents());
 		Collections.shuffle(shuffleAgentList);
 		
 		for(Agent agent : shuffleAgentList){
 			if(random.nextDouble() < Params.DEATHRATE){
 				agent.die();
-				worldAgents.remove(agent);	
+				world.removeAgent(agent);	
 			}
 		}
 		
