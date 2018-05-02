@@ -31,6 +31,10 @@ public class Agent {
 		return this.strategy;
 	}
 	
+	public Block getBlock(){
+		return this.block;
+	}
+	
 	// reset the ptr after reproducing
 	public void resetPtr(){
 		ptr = Params.INITIALPTR;
@@ -48,16 +52,15 @@ public class Agent {
 	
 	/**
 	 * Agent will cooperate with neighbors
+	 * @param occupiedNeighbors
 	 * @return cooperateTime: times of cooperation behaviors
 	 */
-	public int cooperate(){
+	public int cooperate(ArrayList<Agent> occupiedNeighbors){
 		int cooperateTime = 0;
-		// find out which blocks have agent
-		ArrayList<Agent> neighbors = block.getOccupiedNeighbors();
 		switch(strategy){
 		// cooperate with everyone
 		case CC: 
-			for(Agent neighbor : neighbors){
+			for(Agent neighbor : occupiedNeighbors){
 				// agent cost ptr if they cooperate with others
 				this.costPtr();
 				
@@ -69,7 +72,7 @@ public class Agent {
 			break;
 		// cooperate with same type only
 		case CD:
-			for(Agent neighbor : neighbors){
+			for(Agent neighbor : occupiedNeighbors){
 				if(neighbor.getRegion() == this.region){
 					this.costPtr();
 					neighbor.gainPtr();
@@ -79,7 +82,7 @@ public class Agent {
 			break;
 		// cooperate with different type only
 		case DC:
-			for(Agent neighbor : neighbors){
+			for(Agent neighbor : occupiedNeighbors){
 				if(neighbor.getRegion() != this.region){
 					this.costPtr();
 					neighbor.gainPtr();
@@ -95,28 +98,18 @@ public class Agent {
 	/**
 	 * Agent will reproduce a new agent
 	 * if there is a space near by him
+	 * @param emptyNeighborsBlock
 	 * @return reproduceTime: the times of reproduction behavior
 	 * @throws Exception 
 	 */
-	public int reproduce() throws Exception{
+	public int reproduce(Block emptyNeighborsBlock) throws Exception{
 		int reproduceTime = 0;
 		Random random = new Random();
 		if(random.nextDouble() < ptr){
-			
-			
-			// select a empty block randomly
-			ArrayList<Block> emptyNeighbors = block.getEmptyNeighbors();
-			if(emptyNeighbors.size() > 0){
-				Block emptyBlock = emptyNeighbors.get(
-						random.nextInt(emptyNeighbors.size()));
-				
-				if(emptyBlock != null){
-					//TODO controller should make a child
-					reproduceChild(emptyBlock, this);
-					reproduceTime += 1;
-				}
+			if(emptyNeighborsBlock != null){
+				controller.reproduceChild(emptyNeighborsBlock, this);
+				reproduceTime += 1;
 			}
-			
 		}
 		return reproduceTime;
 	}
@@ -127,27 +120,5 @@ public class Agent {
 	public void die(){
 		this.block.setEmpty();
 	}
-	
-	public void reproduceChild(Block block, Agent agent) throws Exception{
-		Random random = new Random();
-		Strategy childStrategy;
-		int childRegion;
-		
-		// select a strategy and a region based on mutation rate
-		if(random.nextDouble() < Params.MUTATIONRATE){
-			childStrategy = Strategy.randomSelectStrategy();
-			childRegion = random.nextInt(Params.NUMOFREGION);
-		}else{
-			childStrategy = agent.getStrategy();
-			childRegion = agent.getRegion();
-		}
-		
-		// generate a child agent
-		Agent childAgent = new Agent(childStrategy, childRegion, block, controller);
-		block.setAgent(childAgent);
-		controller.addWorldAgents(childAgent);
-	}
-	
-	
 
 }

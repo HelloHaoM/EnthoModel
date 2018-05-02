@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A class that represents a single block unit in the world
@@ -59,15 +60,23 @@ public class Block {
 	
 	/**
 	 * Get all empty block near a agent
-	 * @return emptyNeighbors: a list of empty block that near a agent
+	 * @return emptyNeighborBlock: a list of empty block that near a agent
 	 */
-	public ArrayList<Block> getEmptyNeighbors(){
-		ArrayList<Block> emptyNeighbors = new ArrayList<Block>();
-		for(Block neighbor : neighbors){
-			if(neighbor.isEmpty())
-				emptyNeighbors.add(neighbor);
+	public Block getEmptyNeighborBlock(){
+		ArrayList<Block> emptyNeighborBlocks = new ArrayList<Block>();
+		for(Block neighborBlock : neighbors){
+			if(neighborBlock.isEmpty())
+				emptyNeighborBlocks.add(neighborBlock);
 		}
-		return emptyNeighbors;
+		
+		Random random = new Random();
+		Block emptyNeighborBlock = null;
+		if(emptyNeighborBlocks.size() > 0){
+			emptyNeighborBlock = emptyNeighborBlocks.get(
+					random.nextInt(emptyNeighborBlocks.size()));
+		}
+			
+		return emptyNeighborBlock;
 	}
 	
 

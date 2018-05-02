@@ -10,7 +10,7 @@ import java.util.Random;
 public class World {
 	
 	private int size = Params.SIZE;
-	private Block[][] blockWorld = new Block[size][];
+	private Block[][] blockWorld = new Block[size][size];
 	private ArrayList<Block> emptyBlocks = new ArrayList<Block>();
 	
 	
