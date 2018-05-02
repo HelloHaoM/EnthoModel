@@ -17,22 +17,18 @@ public class Block {
 		this.world = world;
 	}
 
-	public Agent getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Agent owner) {
-		this.owner = owner;
-	}
-	
-	public void setNeighbors(ArrayList<Block> negihbors){
-		this.neighbors.addAll(negihbors);
-	}
-	
-	public boolean isEmpty(){
+	private boolean isEmpty(){
 		if(owner == null)
 			return true;
 		return false;
+	}
+	
+	public Agent getOwner() {
+		return owner;
+	}
+	
+	public void addNeighborBlock(Block negihbor){
+		this.neighbors.add(negihbor);
 	}
 	
 	public void setEmpty(){
@@ -46,20 +42,28 @@ public class Block {
 	}
 	
 	/**
-	 * Get all agents near a agent
+	 * Get random occupied block near a agent
 	 * @return occupiedNeighbors: a list of agents that near a agent
 	 */
-	public ArrayList<Agent> getOccupiedNeighbors(){
-		ArrayList<Agent> occupiedNeighbors = new ArrayList<Agent>();
+	public Block getOccupiedNeighborBlock(){
+		ArrayList<Block> occupiedNeighborBlocks = new ArrayList<Block>();
 		for(Block neighbor : neighbors){
 			if(!neighbor.isEmpty())
-				occupiedNeighbors.add(neighbor.owner);
+				occupiedNeighborBlocks.add(neighbor);
 		}
-		return occupiedNeighbors;
+		
+		Random random = new Random();
+		Block occupiedNeighborBlock = null;
+		if(occupiedNeighborBlocks.size() > 0){
+			occupiedNeighborBlock = occupiedNeighborBlocks.get(
+					random.nextInt(occupiedNeighborBlocks.size()));
+		}
+		
+		return occupiedNeighborBlock;
 	}
 	
 	/**
-	 * Get all empty block near a agent
+	 * Get random empty block near a agent
 	 * @return emptyNeighborBlock: a list of empty block that near a agent
 	 */
 	public Block getEmptyNeighborBlock(){

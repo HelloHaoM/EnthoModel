@@ -56,6 +56,7 @@ public class World {
 					left = size -1;
 				if(j == size - 1)
 					right = 0;
+				
 				blockInit(i,j,up,down,left,right);
 			}
 	}
@@ -72,13 +73,11 @@ public class World {
 	public void blockInit(int i, int j,
 			int up, int down, int left, int right){
 		Block block = blockWorld[i][j];
-		ArrayList<Block> neighbors = new ArrayList<Block>();
-		neighbors.add(blockWorld[up][j]);
-		neighbors.add(blockWorld[down][j]);
-		neighbors.add(blockWorld[i][left]);
-		neighbors.add(blockWorld[i][right]);
 		
-		block.setNeighbors(neighbors);
+		block.addNeighborBlock(blockWorld[up][j]);
+		block.addNeighborBlock(blockWorld[down][j]);
+		block.addNeighborBlock(blockWorld[i][left]);
+		block.addNeighborBlock(blockWorld[i][right]);
 	}
 	
 	/**

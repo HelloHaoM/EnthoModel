@@ -32,7 +32,7 @@ public class Params {
 		public final static int NUMOFREGION = 4;
 		
 		// the total time tick
-		public final static int TOTALTICK = 5000;
+		public final static int TOTALTICK = 2000;
 		
 		// the size of the world
 		public final static int SIZE = 50;

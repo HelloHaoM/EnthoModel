@@ -32,10 +32,6 @@ public class Controller {
 		this.world = world;
 	}
 	
-	public void addWorldAgents(Agent agent){
-		worldAgents.add(agent);
-	}
-	
 	public int getNumOfCC(){
 		int numOfCC = 0;
 		for(Agent agent : worldAgents){
@@ -87,15 +83,16 @@ public class Controller {
 	 * Immigration: generate a new agent
 	 * @throws Exception
 	 */
-	public void immigrate() throws Exception{
+	private void immigrate() throws Exception{
 		Random random = new Random();
 		for(int i = 0; i < Params.IMMIGRANTSPERDAY; i++){
 			// Find a empty block randomly
 			Block emptyBlock = world.getEmptyBlock();
 			
 			// select region and strategy randomly
-			int region = random.nextInt(Params.NUMOFREGION);
+			Region region = Region.randomSelectRegion();
 			Strategy strategy = Strategy.CC;
+			
 			if(random.nextDouble() > Params.IMMIGRANTCHANGECOOPERATEWITHSAME){
 				strategy = Strategy.randomSelectCoSame();
 			}else if(random.nextDouble() > Params.IMMIGRANTCHANGECOOPERATEWITHDIFFERENT){
@@ -112,16 +109,16 @@ public class Controller {
 	/**
 	 * all agents in the world will have chance to cooperate
 	 */
-	public void cooperate(){
+	private void cooperate(){
 		// create a list that agents ordered randomly
 		ArrayList<Agent> shuffleAgentList = new ArrayList<Agent>();
 		shuffleAgentList.addAll(worldAgents);
 		Collections.shuffle(shuffleAgentList);
 		
-		ArrayList<Agent> occupiedNeighbors = new ArrayList<Agent>();
+		Block occupiedNeighborBlock = null;
 		for(Agent agent : shuffleAgentList){
-			occupiedNeighbors = agent.getBlock().getOccupiedNeighbors();
-			agent.cooperate(occupiedNeighbors);
+			occupiedNeighborBlock = agent.getBlock().getOccupiedNeighborBlock();
+			agent.cooperate(occupiedNeighborBlock);
 		}
 	}
 	
@@ -129,7 +126,7 @@ public class Controller {
 	 * all agents in the world will have chance to reproduce
 	 * @throws Exception
 	 */
-	public void reproduce() throws Exception{
+	private void reproduce() throws Exception{
 		// create a list that agents ordered randomly
 		ArrayList<Agent> shuffleAgentList = new ArrayList<Agent>();
 		shuffleAgentList.addAll(worldAgents);
@@ -148,15 +145,15 @@ public class Controller {
 	 * @param agent
 	 * @throws Exception
 	 */
-	public void reproduceChild(Block block, Agent agent) throws Exception{
+	protected void reproduceChild(Block block, Agent agent) throws Exception{
 		Random random = new Random();
 		Strategy childStrategy;
-		int childRegion;
+		Region childRegion;
 		
 		// select a strategy and a region based on mutation rate
 		if(random.nextDouble() < Params.MUTATIONRATE){
 			childStrategy = Strategy.randomSelectStrategy();
-			childRegion = random.nextInt(Params.NUMOFREGION);
+			childRegion = Region.randomSelectRegion();
 		}else{
 			childStrategy = agent.getStrategy();
 			childRegion = agent.getRegion();
@@ -171,19 +168,20 @@ public class Controller {
 	/**
 	 * some agents(depend on death rate) will dead and be removed in the world
 	 */
-	public void die(){
+	private void die(){
 		Random random = new Random();
-		ArrayList<Agent> deadAgents = new ArrayList<Agent>();
-		for(Agent agent : worldAgents){
+		
+		ArrayList<Agent> shuffleAgentList = new ArrayList<Agent>();
+		shuffleAgentList.addAll(worldAgents);
+		Collections.shuffle(shuffleAgentList);
+		
+		for(Agent agent : shuffleAgentList){
 			if(random.nextDouble() < Params.DEATHRATE){
 				agent.die();
-				deadAgents.add(agent);
+				worldAgents.remove(agent);	
 			}
 		}
 		
-		worldAgents.removeAll(deadAgents);
 	}
 	
-	
-
 }

@@ -16,6 +16,12 @@ public class MainSimulator {
 		Controller controller = new Controller(world);
 		try{
 			FileWriter csv = new FileWriter(System.getProperty("user.dir") + "/result.csv");
+			
+			// Run the simulation
+			for(int i =0; i < Params.TOTALTICK; i++){
+				controller.tick();
+			}
+			
 			output2Csv(controller, csv);
 			csv.flush();
 			csv.close();
@@ -35,10 +41,6 @@ public class MainSimulator {
 		csv.append(",");
 		csv.append("DD");
 		csv.append("\n");
-		
-		for(int i =0; i < Params.TOTALTICK; i++){
-			controller.tick();
-		}
 		
 		// Output result
 		csv.append(Integer.toString(controller.getNumOfCC()));

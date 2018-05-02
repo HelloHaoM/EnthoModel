@@ -11,19 +11,19 @@ import java.util.Random;
 public class Agent {
 	
 	private Strategy strategy;
-	private int region;
+	private Region region;
 	private Block block;
 	private Controller controller;
 	private double ptr = Params.INITIALPTR;
 	
-	public Agent(Strategy strategy, int region, Block block, Controller controller){
+	public Agent(Strategy strategy, Region region, Block block, Controller controller){
 		this.strategy = strategy;
 		this.region = region;
 		this.block = block;
 		this.controller = controller;
 	}
 	
-	public int getRegion(){
+	public Region getRegion(){
 		return this.region;
 	}
 	
@@ -35,60 +35,50 @@ public class Agent {
 		return this.block;
 	}
 	
-	// reset the ptr after reproducing
-	public void resetPtr(){
-		ptr = Params.INITIALPTR;
-	}
-	
 	// agent gain benefit with interaction
-	public void gainPtr(){
+	private void gainPtr(){
 		ptr += Params.GAINOFRECEIVING;
 	}
 	
 	// agent cost benefit with interaction
-	public void costPtr(){
+	private void costPtr(){
 		ptr -= Params.COSTOFGIVING;
 	}
 	
 	/**
 	 * Agent will cooperate with neighbors
-	 * @param occupiedNeighbors
+	 * @param occupiedNeighborBlock
 	 * @return cooperateTime: times of cooperation behaviors
 	 */
-	public int cooperate(ArrayList<Agent> occupiedNeighbors){
+	public int cooperate(Block occupiedNeighborBlock){
 		int cooperateTime = 0;
 		switch(strategy){
 		// cooperate with everyone
 		case CC: 
-			for(Agent neighbor : occupiedNeighbors){
-				// agent cost ptr if they cooperate with others
+			if(occupiedNeighborBlock != null){
 				this.costPtr();
-				
-				// agent who is cooperated by others gains ptr
-				neighbor.gainPtr();
-				
+				occupiedNeighborBlock.getOwner().gainPtr();
 				cooperateTime += 1;
 			}
 			break;
 		// cooperate with same type only
 		case CD:
-			for(Agent neighbor : occupiedNeighbors){
-				if(neighbor.getRegion() == this.region){
-					this.costPtr();
-					neighbor.gainPtr();
-					cooperateTime += 1;
-				}
+			if(occupiedNeighborBlock != null 
+					 && occupiedNeighborBlock.getOwner().getRegion() == this.region){
+				this.costPtr();
+				occupiedNeighborBlock.getOwner().gainPtr();
+				cooperateTime += 1;
 			}
 			break;
 		// cooperate with different type only
 		case DC:
-			for(Agent neighbor : occupiedNeighbors){
-				if(neighbor.getRegion() != this.region){
-					this.costPtr();
-					neighbor.gainPtr();
-					cooperateTime += 1;
-				}
+			if(occupiedNeighborBlock != null 
+					&& occupiedNeighborBlock.getOwner().getRegion() != this.region){
+				this.costPtr();
+				occupiedNeighborBlock.getOwner().gainPtr();
+				cooperateTime += 1;
 			}
+			break;
 		default:
 			break;
 		}
