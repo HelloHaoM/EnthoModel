@@ -48,17 +48,14 @@ public class Agent {
 	/**
 	 * Agent will cooperate with neighbors
 	 * @param occupiedNeighborBlock
-	 * @return cooperateTime: times of cooperation behaviors
 	 */
-	public int cooperate(Block occupiedNeighborBlock){
-		int cooperateTime = 0;
+	public void cooperate(Block occupiedNeighborBlock){
 		switch(strategy){
 		// cooperate with everyone
 		case CC: 
 			if(occupiedNeighborBlock != null){
 				this.costPtr();
 				occupiedNeighborBlock.getOwner().gainPtr();
-				cooperateTime += 1;
 			}
 			break;
 		// cooperate with same type only
@@ -67,7 +64,6 @@ public class Agent {
 					 && occupiedNeighborBlock.getOwner().getRegion() == this.region){
 				this.costPtr();
 				occupiedNeighborBlock.getOwner().gainPtr();
-				cooperateTime += 1;
 			}
 			break;
 		// cooperate with different type only
@@ -76,32 +72,26 @@ public class Agent {
 					&& occupiedNeighborBlock.getOwner().getRegion() != this.region){
 				this.costPtr();
 				occupiedNeighborBlock.getOwner().gainPtr();
-				cooperateTime += 1;
 			}
 			break;
 		default:
 			break;
 		}
-		return cooperateTime;
 	}
 	
 	/**
 	 * Agent will reproduce a new agent
 	 * if there is a space near by him
 	 * @param emptyNeighborsBlock
-	 * @return reproduceTime: the times of reproduction behavior
 	 * @throws Exception 
 	 */
-	public int reproduce(Block emptyNeighborsBlock) throws Exception{
-		int reproduceTime = 0;
+	public void reproduce(Block emptyNeighborsBlock) throws Exception{
 		Random random = new Random();
 		if(random.nextDouble() < ptr){
 			if(emptyNeighborsBlock != null){
 				controller.reproduceChild(emptyNeighborsBlock, this);
-				reproduceTime += 1;
 			}
 		}
-		return reproduceTime;
 	}
 	
 	/**
