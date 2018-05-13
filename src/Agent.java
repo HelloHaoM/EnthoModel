@@ -49,29 +49,31 @@ public class Agent {
 	 * Agent will cooperate with neighbors
 	 * @param occupiedNeighborBlock
 	 */
-	public void cooperate(Block occupiedNeighborBlock){
+	public void cooperate(ArrayList<Block> occupiedNeighborBlocks){
 		switch(strategy){
 		// cooperate with everyone
 		case CC: 
-			if(occupiedNeighborBlock != null){
+			for(Block occupiedNeighborBlock : occupiedNeighborBlocks){
 				this.costPtr();
 				occupiedNeighborBlock.getOwner().gainPtr();
 			}
 			break;
 		// cooperate with same type only
 		case CD:
-			if(occupiedNeighborBlock != null 
-					 && occupiedNeighborBlock.getOwner().getRegion() == this.region){
-				this.costPtr();
-				occupiedNeighborBlock.getOwner().gainPtr();
+			for(Block occupiedNeighborBlock : occupiedNeighborBlocks){
+				if(occupiedNeighborBlock.getOwner().getRegion() == this.region){
+					this.costPtr();
+					occupiedNeighborBlock.getOwner().gainPtr();
+				}
 			}
 			break;
 		// cooperate with different type only
 		case DC:
-			if(occupiedNeighborBlock != null 
-					&& occupiedNeighborBlock.getOwner().getRegion() != this.region){
-				this.costPtr();
-				occupiedNeighborBlock.getOwner().gainPtr();
+			for(Block occupiedNeighborBlock : occupiedNeighborBlocks){
+				if(occupiedNeighborBlock.getOwner().getRegion() != this.region){
+					this.costPtr();
+					occupiedNeighborBlock.getOwner().gainPtr();
+				}
 			}
 			break;
 		default:

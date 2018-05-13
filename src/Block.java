@@ -45,21 +45,21 @@ public class Block {
 	 * Get random occupied block near a agent
 	 * @return occupiedNeighbors: a list of agents that near a agent
 	 */
-	public Block getOccupiedNeighborBlock(){
+	public ArrayList<Block> getOccupiedNeighborBlocks(){
 		ArrayList<Block> occupiedNeighborBlocks = new ArrayList<Block>();
 		for(Block neighbor : neighbors){
 			if(!neighbor.isEmpty())
 				occupiedNeighborBlocks.add(neighbor);
 		}
 		
-		Random random = new Random();
-		Block occupiedNeighborBlock = null;
-		if(occupiedNeighborBlocks.size() > 0){
-			occupiedNeighborBlock = occupiedNeighborBlocks.get(
-					random.nextInt(occupiedNeighborBlocks.size()));
-		}
+//		Random random = new Random();
+//		Block occupiedNeighborBlock = null;
+//		if(occupiedNeighborBlocks.size() > 0){
+//			occupiedNeighborBlock = occupiedNeighborBlocks.get(
+//					random.nextInt(occupiedNeighborBlocks.size()));
+//		}
 		
-		return occupiedNeighborBlock;
+		return occupiedNeighborBlocks;
 	}
 	
 	/**

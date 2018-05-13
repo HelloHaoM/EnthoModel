@@ -115,10 +115,10 @@ public class Controller {
 		shuffleAgentList.addAll(world.getWorldAgents());
 		Collections.shuffle(shuffleAgentList);
 		
-		Block occupiedNeighborBlock = null;
+		ArrayList<Block> occupiedNeighborBlocks = null;
 		for(Agent agent : shuffleAgentList){
-			occupiedNeighborBlock = agent.getBlock().getOccupiedNeighborBlock();
-			agent.cooperate(occupiedNeighborBlock);
+			occupiedNeighborBlocks = agent.getBlock().getOccupiedNeighborBlocks();
+			agent.cooperate(occupiedNeighborBlocks);
 		}
 	}
 	
