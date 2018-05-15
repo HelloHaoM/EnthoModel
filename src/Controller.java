@@ -96,7 +96,7 @@ public class Controller {
 			if(random.nextDouble() > Params.IMMIGRANTCHANGECOOPERATEWITHSAME){
 				strategy = Strategy.randomSelectCoSame();
 			}else if(random.nextDouble() > Params.IMMIGRANTCHANGECOOPERATEWITHDIFFERENT){
-				strategy = Strategy.randomSelectCoSame();
+				strategy = Strategy.randomSelectCoDifferent();
 			}
 			
 			// generate a new agent
