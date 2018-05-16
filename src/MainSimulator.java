@@ -1,3 +1,10 @@
+/* This program simulates a NetLogo model -- Ethnocentrism.
+ * Created by Hao Mai(895890) and Yudong Gao(886576)
+ * In this program, we use 'Region' to represent 'Color',
+ * and use 'Strategy' to represent the combination of the second
+ * and the third 'Trait'
+*/
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,7 +14,7 @@ import java.util.ArrayList;
  * CSV file will be outputted
  * 
  * @author haomai
- *
+ * @author Yudong
  */
 public class MainSimulator {
 	

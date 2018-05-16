@@ -21,14 +21,27 @@ public enum Strategy {
 	 */
 	public static Strategy randomSelectCoSame() throws Exception{
 		Random random = new Random();
+		// then here decide the third trait 
+		if (random.nextDouble() < Params.IMMIGRANTCHANGECOOPERATEWITHDIFFERENT) {
+			// if the random number is less than the rate of 
+			// coopertating with agents of different colour
+			// then it cooperates with them, third trait is 'C'
+			return CC;
+		}else{
+			// else it defects them
+			// the third trait is 'D'
+			return CD;
+		}
+		/*
 		switch(random.nextInt(2)){
 		case 0:
 			return CC;
 		case 1:
 			return CD;
 		default:
-			throw new Exception("Error strategy");		
+			throw new Exception("Error strategy");
 		}
+		*/
 	}
 	
 	/**
@@ -38,6 +51,17 @@ public enum Strategy {
 	 */
 	public static Strategy randomSelectCoDifferent() throws Exception{
 		Random random = new Random();
+		if (random.nextDouble() < Params.IMMIGRANTCHANGECOOPERATEWITHDIFFERENT) {
+			// if the random number is less than the rate of 
+			// coopertating with agents of different colour
+			// then it cooperates with them, third trait is 'C'
+			return DC;
+		}else{
+			// else it defects them
+			// the third trait is 'D'
+			return DD;
+		}
+		/*
 		switch(random.nextInt(2)){
 		case 0:
 			return DC;
@@ -46,8 +70,52 @@ public enum Strategy {
 		default:
 			throw new Exception("Error strategy");		
 		}
+		*/
 	}
-	
+
+	/**
+	 * Mutate a strategy, make it different from the previous one
+	 * @return a specific strategy
+	 * @throws Exception
+	 */
+	public static Strategy mutateStrategys(Strategy strategy) throws Exception{
+        Random random = new Random();
+        // if the program enters this method, 
+        // it means that at least one trait will be mutated
+		if (random.nextInt() < Params.MUTATIONRATE) {
+			// if it also needs to mutate the third trait
+            switch(strategy){
+             	case CC:
+                    return DD;
+                case DC:
+                    return CD;
+                case CD:
+                    return DC;
+                case DD:
+                    return CC;
+                default:
+                    throw new Exception("Error strategy");
+            }
+        }else{
+        	// if it doesn't need to mutate the third trait
+            switch(strategy){
+                case CC:
+                    return DC;
+                case DC:
+                    return CC;
+                case CD:
+                    return DD;
+                case DD:
+                    return CD;
+                default:
+                    throw new Exception("Error strategy");
+            }
+        }
+   
+	}
+
+
+
 	/**
 	 * Select a strategy randomly
 	 * @return a specific strategy

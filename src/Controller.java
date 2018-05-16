@@ -92,10 +92,14 @@ public class Controller {
 			// select region and strategy randomly
 			Region region = Region.randomSelectRegion();
 			Strategy strategy = Strategy.CC;
-			
-			if(random.nextDouble() > Params.IMMIGRANTCHANGECOOPERATEWITHSAME){
+
+			// if random number is less than the rate of 
+			// cooperating with the same color
+			// then its second trait should be 'C'
+			if(random.nextDouble() < Params.IMMIGRANTCHANGECOOPERATEWITHSAME){
 				strategy = Strategy.randomSelectCoSame();
-			}else if(random.nextDouble() > Params.IMMIGRANTCHANGECOOPERATEWITHDIFFERENT){
+			}else{
+				// else its second trait should be 'D'
 				strategy = Strategy.randomSelectCoDifferent();
 			}
 			
@@ -149,7 +153,10 @@ public class Controller {
 		Random random = new Random();
 		Strategy childStrategy;
 		Region childRegion;
-		
+                // Initialise the Region and Strategy for child agent
+                childStrategy = agent.getStrategy();
+		childRegion = agent.getRegion();
+		/*
 		// select a strategy and a region based on mutation rate
 		if(random.nextDouble() < Params.MUTATIONRATE){
 			childStrategy = Strategy.randomSelectStrategy();
@@ -158,7 +165,16 @@ public class Controller {
 			childStrategy = agent.getStrategy();
 			childRegion = agent.getRegion();
 		}
-		
+		*/
+		if (random.nextDouble() < Params.MUTATIONRATE) {
+			childRegion = Region.randomSelectRegion();
+		}
+
+		if (random.nextDouble() < Params.MUTATIONRATE) {
+			// decide the second trait of the child agent
+			childStrategy = Strategy.mutateStrategys(childStrategy);
+		}
+
 		// generate a child agent
 		Agent childAgent = new Agent(childStrategy, childRegion, block, this);
 		block.setAgent(childAgent);
