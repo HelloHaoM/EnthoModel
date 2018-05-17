@@ -1,6 +1,7 @@
 /**
  * A class that defining all parameters using in the model
  * @author haomai
+ * @author Yudong
  *
  */
 public class Params {
@@ -32,7 +33,7 @@ public class Params {
 		public final static int NUMOFREGION = 4;
 		
 		// the total time tick
-		public final static int TOTALTICK = 2000;
+		public final static int TOTALTICK = 200;
 		
 		// the size of the world
 		public final static int SIZE = 50;

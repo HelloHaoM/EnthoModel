@@ -6,6 +6,7 @@ import java.util.Random;
  * with specific region and cooperation strategy
  * 
  * @author haomai
+ * @author Yudong
  *
  */
 public class Agent {

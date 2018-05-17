@@ -5,33 +5,20 @@ import java.util.Random;
 /**
  * A class that is used to simulate the model
  * @author haomai
+ * @author Yudong
  *
  */
 public class Controller {
-	/**
-	 * 按我的理解来说，controller应该要有一个tick函数，函数里面有4个流程：
-	 * 1. immigrate (产生一个agent并占据一个空block,strategy, color之类的要随机确定)
-	 * 2. interact	(调用agent间interact)
-	 * 3. reproduce (随机调用agent的reproduce)
-	 * 4. die (随机让某个agents死掉)
-	 */
-	
-	/**
-	 * 维护一个agent list 代表现在的agent
-	 * 因为要输出最终结果，可能还要维护一下4种agent的数目
-	 */
-	
-	/**
-	 * 在MainSimulator函数里，循环调用tick函数多次，然后输出csv即可
-	 */
 	
 	//private ArrayList<Agent> worldAgents = new ArrayList<Agent>();
 	private World world;
 	
+	// construction function, get connected with the world
 	public Controller(World world){
 		this.world = world;
 	}
 	
+	// get the amount of CC agents
 	public int getNumOfCC(){
 		int numOfCC = 0;
 		for(Agent agent : world.getWorldAgents()){
@@ -40,7 +27,8 @@ public class Controller {
 		}
 		return numOfCC;
 	}
-	
+
+	// get the amount of CD agents
 	public int getNumOfCD(){
 		int numOfCD = 0;
 		for(Agent agent : world.getWorldAgents()){
@@ -50,6 +38,7 @@ public class Controller {
 		return numOfCD;
 	}
 	
+	// get the amount of DC agents
 	public int getNumOfDC(){
 		int numOfDC = 0;
 		for(Agent agent : world.getWorldAgents()){
@@ -59,6 +48,7 @@ public class Controller {
 		return numOfDC;
 	}
 	
+	//// get the amount of DD agents
 	public int getNumOfDD(){
 		int numOfDD = 0;
 		for(Agent agent : world.getWorldAgents()){
@@ -70,7 +60,7 @@ public class Controller {
 	
 	/**
 	 * A main function for simulation
-	 * Each tick represents each time
+	 * Each tick represents a unit time
 	 */
 	public void tick() throws Exception{
 		immigrate();
@@ -119,9 +109,12 @@ public class Controller {
 		shuffleAgentList.addAll(world.getWorldAgents());
 		Collections.shuffle(shuffleAgentList);
 		
+		// find the neighbours of agents
 		ArrayList<Block> occupiedNeighborBlocks = null;
 		for(Agent agent : shuffleAgentList){
 			occupiedNeighborBlocks = agent.getBlock().getOccupiedNeighborBlocks();
+
+			// cooperate with its neighbours
 			agent.cooperate(occupiedNeighborBlocks);
 		}
 	}
@@ -136,9 +129,12 @@ public class Controller {
 		shuffleAgentList.addAll(world.getWorldAgents());
 		Collections.shuffle(shuffleAgentList);
 		
+		// find the adjacent empty block
 		Block emptyNeighborsBlock = null;
 		for(Agent agent : shuffleAgentList){
 			emptyNeighborsBlock = agent.getBlock().getEmptyNeighborBlock();
+
+			// reproduce a child in its adjacent empty block
 			agent.reproduce(emptyNeighborsBlock);
 		}
 	}
@@ -153,20 +149,13 @@ public class Controller {
 		Random random = new Random();
 		Strategy childStrategy;
 		Region childRegion;
-                // Initialise the Region and Strategy for child agent
-                childStrategy = agent.getStrategy();
+
+        // Initialise the Region and Strategy for child agent
+        childStrategy = agent.getStrategy();
 		childRegion = agent.getRegion();
-		/*
-		// select a strategy and a region based on mutation rate
-		if(random.nextDouble() < Params.MUTATIONRATE){
-			childStrategy = Strategy.randomSelectStrategy();
-			childRegion = Region.randomSelectRegion();
-		}else{
-			childStrategy = agent.getStrategy();
-			childRegion = agent.getRegion();
-		}
-		*/
+		
 		if (random.nextDouble() < Params.MUTATIONRATE) {
+			// mutate child's region
 			childRegion = Region.randomSelectRegion();
 		}
 
@@ -193,6 +182,8 @@ public class Controller {
 		
 		for(Agent agent : shuffleAgentList){
 			if(random.nextDouble() < Params.DEATHRATE){
+				// if this agent dies, remove the agent from the block,
+				// and then remove it from the world
 				agent.die();
 				world.removeAgent(agent);	
 			}

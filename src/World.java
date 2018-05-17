@@ -5,6 +5,7 @@ import java.util.Random;
  * A class that represents the real world
  * providing block unit to agents
  * @author haomai
+ * @author Yudong
  *
  */
 public class World {

@@ -5,6 +5,7 @@ import java.util.Random;
  * A class that represents a single block unit in the world
  * 
  * @author haomai
+ * @author Yudong
  *
  */
 public class Block {

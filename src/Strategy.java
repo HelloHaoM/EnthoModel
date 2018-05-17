@@ -9,6 +9,7 @@ import java.util.Random;
  * DD: The agent who only cooperate with people of different types
  * 
  * @author haomai
+ * @author Yudong
  *
  */
 public enum Strategy {
@@ -32,16 +33,6 @@ public enum Strategy {
 			// the third trait is 'D'
 			return CD;
 		}
-		/*
-		switch(random.nextInt(2)){
-		case 0:
-			return CC;
-		case 1:
-			return CD;
-		default:
-			throw new Exception("Error strategy");
-		}
-		*/
 	}
 	
 	/**
@@ -61,16 +52,6 @@ public enum Strategy {
 			// the third trait is 'D'
 			return DD;
 		}
-		/*
-		switch(random.nextInt(2)){
-		case 0:
-			return DC;
-		case 1:
-			return DD;
-		default:
-			throw new Exception("Error strategy");		
-		}
-		*/
 	}
 
 	/**
@@ -82,7 +63,7 @@ public enum Strategy {
         Random random = new Random();
         // if the program enters this method, 
         // it means that at least one trait will be mutated
-		if (random.nextInt() < Params.MUTATIONRATE) {
+		if (random.nextDouble() < Params.MUTATIONRATE) {
 			// if it also needs to mutate the third trait
             switch(strategy){
              	case CC:
