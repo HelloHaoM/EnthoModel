@@ -25,27 +25,27 @@ public class MainSimulator {
 		int tick = 0;
 		try{
 			FileWriter csv = new FileWriter(System.getProperty("user.dir") + "/result.csv");
-                for (int a = 0; a < 5; a++) {
-                	System.out.println(a+1 + " test start");
-                    // setting parametres of each round 
-                    Params.setParams(a);
-                    // add parameters to the csv file
-                    addParams2csv(csv);
-                    // add title to the csv file
-                    addTitle2csv(csv);
+            for (int a = 0; a < 5; a++) {
+            	System.out.println(a+1 + " test start");
+                // setting parametres of each round 
+                Params.setParams(a);
+                // add parameters to the csv file
+                addParams2csv(csv);
+                // add title to the csv file
+                addTitle2csv(csv);
 
-                    // begin the simulation, 2000 ticks in total
-                    // after every 100 tick, we write the amount of (CC, CD, DC, DD) into a file
-                    for (int i = 0; i < 20; i++) {
-                        for(int j = i*100; j < (i+1)*100; j++){
-                            controller.tick();
-                            tick = j+1;
-                        }
-                        // write the output into a csv file
-                        output2Csv(controller, csv, tick);
+                // begin the simulation, 2000 ticks in total
+                // after every 100 tick, we write the amount of (CC, CD, DC, DD) into a file
+                for (int i = 0; i < 20; i++) {
+                    for(int j = i*100; j < (i+1)*100; j++){
+                        controller.tick();
+                        tick = j+1;
                     }
+                    // write the output into a csv file
+                    output2Csv(controller, csv, tick);
                 }
-                System.out.println("All test finished");
+            }
+            System.out.println("All test finished");
 			csv.flush();
 			csv.close();
 		}catch(Exception e){
