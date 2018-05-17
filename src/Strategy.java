@@ -59,43 +59,59 @@ public enum Strategy {
 	 * @return a specific strategy
 	 * @throws Exception
 	 */
-	public static Strategy mutateStrategys(Strategy strategy) throws Exception{
-        Random random = new Random();
-        // if the program enters this method, 
-        // it means that at least one trait will be mutated
+	public static Strategy mutateSecondTrait(Strategy strategy) throws Exception{
+		Random random = new Random();
+		// if the program enters this method, 
+		// it means that at least one trait will be mutated
 		if (random.nextDouble() < Params.MUTATIONRATE) {
 			// if it also needs to mutate the third trait
-            switch(strategy){
-             	case CC:
-                    return DD;
-                case DC:
-                    return CD;
-                case CD:
-                    return DC;
-                case DD:
-                    return CC;
-                default:
-                    throw new Exception("Error strategy");
-            }
-        }else{
-        	// if it doesn't need to mutate the third trait
-            switch(strategy){
-                case CC:
-                    return DC;
-                case DC:
-                    return CC;
-                case CD:
-                    return DD;
-                case DD:
-                    return CD;
-                default:
-                    throw new Exception("Error strategy");
-            }
-        }
-   
+			switch(strategy){
+				case CC:
+					return DD;
+				case DC:
+					return CD;
+				case CD:
+					return DC;
+				case DD:
+					return CC;
+				default:
+					throw new Exception("Error strategy");
+			}
+		}else{
+			// if it doesn't need to mutate the third trait
+			switch(strategy){
+				case CC:
+					return DC;
+				case DC:
+					return CC;
+				case CD:
+					return DD;
+				case DD:
+					return CD;
+				default:
+					throw new Exception("Error strategy");
+			}
+		}
 	}
 
-
+	public static Strategy mutateThirdTrait(Strategy strategy) throws Exception{
+		Random random = new Random();
+		// if the program enters this method, 
+		// it means that at least one trait will be mutated
+		// if it also needs to mutate the third trait
+		switch(strategy){
+			case CC:
+				return CD;
+			case DC:
+				return DD;
+			case CD:
+				return CC;
+			case DD:
+				return DC;
+			default:
+				throw new Exception("Error strategy");
+		}
+	}
 
 	/**
 	 * Select a strategy randomly

@@ -94,9 +94,9 @@ public class Controller {
 			}
 			
 			// generate a new agent
-			Agent immgrant = new Agent(strategy, region, emptyBlock, this);
-			emptyBlock.setAgent(immgrant);
-			world.addAgent(immgrant);
+			Agent immigrant = new Agent(strategy, region, emptyBlock, this);
+			emptyBlock.setAgent(immigrant);
+			world.addAgent(immigrant);
 		}
 	}
 	
@@ -150,8 +150,8 @@ public class Controller {
 		Strategy childStrategy;
 		Region childRegion;
 
-        // Initialise the Region and Strategy for child agent
-        childStrategy = agent.getStrategy();
+		// Initialise the Region and Strategy for child agent
+		childStrategy = agent.getStrategy();
 		childRegion = agent.getRegion();
 		
 		if (random.nextDouble() < Params.MUTATIONRATE) {
@@ -161,7 +161,9 @@ public class Controller {
 
 		if (random.nextDouble() < Params.MUTATIONRATE) {
 			// decide the second trait of the child agent
-			childStrategy = Strategy.mutateStrategys(childStrategy);
+			childStrategy = Strategy.mutateSecondTrait(childStrategy);
+		} else if (random.nextDouble() < Params.MUTATIONRATE) {
+			childStrategy = Strategy.mutateThirdTrait(childStrategy);
 		}
 
 		// generate a child agent
