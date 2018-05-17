@@ -26,6 +26,7 @@ public class MainSimulator {
 		try{
 			FileWriter csv = new FileWriter(System.getProperty("user.dir") + "/result.csv");
                 for (int a = 0; a < 5; a++) {
+                	System.out.println(a+1 + " test start");
                     // setting parametres of each round 
                     Params.setParams(a);
                     // add parameters to the csv file
@@ -44,6 +45,7 @@ public class MainSimulator {
                         output2Csv(controller, csv, tick);
                     }
                 }
+                System.out.println("All test finished");
 			csv.flush();
 			csv.close();
 		}catch(Exception e){
