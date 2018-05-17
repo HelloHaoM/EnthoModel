@@ -83,14 +83,22 @@ public class Controller {
 			Region region = Region.randomSelectRegion();
 			Strategy strategy = Strategy.CC;
 
-			// if random number is less than the rate of 
+			// if random number is greater than the rate of 
 			// cooperating with the same color
-			// then its second trait should be 'C'
-			if(random.nextDouble() < Params.IMMIGRANTCHANGECOOPERATEWITHSAME){
-				strategy = Strategy.randomSelectCoSame();
-			}else{
-				// else its second trait should be 'D'
-				strategy = Strategy.randomSelectCoDifferent();
+			// which means it doesn't cooperate with same colour
+			// then its first letter should be 'D'
+			if(random.nextDouble() > Params.IMMIGRANTCHANGECOOPERATEWITHSAME){
+				// the initial strategy is CC, 
+				// so it needs to change the first letter to 'D'
+				strategy = Strategy.changeFirstLetter(strategy);
+			}
+
+			// if random number is greater than the rate of 
+			// cooperating with the different color
+			// which means it doesn't cooperate with different colour
+			// then its second letter should be 'D'
+			if (random.nextDouble() > Params.IMMIGRANTCHANGECOOPERATEWITHDIFFERENT) {
+				strategy = Strategy.changeSecondLetter(strategy);
 			}
 			
 			// generate a new agent
@@ -160,10 +168,13 @@ public class Controller {
 		}
 
 		if (random.nextDouble() < Params.MUTATIONRATE) {
-			// decide the second trait of the child agent
-			childStrategy = Strategy.mutateSecondTrait(childStrategy);
-		} else if (random.nextDouble() < Params.MUTATIONRATE) {
-			childStrategy = Strategy.mutateThirdTrait(childStrategy);
+			// decide the first letter of the child agent's strategy
+			childStrategy = Strategy.changeFirstLetter(childStrategy);
+		}
+
+		if (random.nextDouble() < Params.MUTATIONRATE) {
+			// decide the second letter of the child agent's strategy
+			childStrategy = Strategy.changeSecondLetter(childStrategy);
 		}
 
 		// generate a child agent
