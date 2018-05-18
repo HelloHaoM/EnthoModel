@@ -8,7 +8,7 @@ import java.util.Random;
  *
  */
 public enum Region {
-	RED, YELLOW, BLUE, GREEN;
+	RED, YELLOW, BLUE, GREEN, GRAY, ORANGE, BROWN, PURPLE;
 	
 	public static Region randomSelectRegion() throws Exception{
 		Random random = new Random();
@@ -22,6 +22,14 @@ public enum Region {
 				return BLUE;
 			case 3:
 				return GREEN;
+			case 4:
+				return GRAY;
+			case 5:
+				return ORANGE;
+			case 6:
+				return BROWN;
+			case 7:
+				return PURPLE;
 			default:
 				throw new Exception("Error Region");	
 		}

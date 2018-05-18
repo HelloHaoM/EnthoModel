@@ -30,7 +30,7 @@ public class Params {
 		public static double IMMIGRANTCHANGECOOPERATEWITHDIFFERENT = 0.50;
 		
 		// the number of Region
-		public final static int NUMOFREGION = 4;
+		public final static int NUMOFREGION = 8;
 		
 		// the total time tick
 		public final static int TOTALTICK = 200;

@@ -62,7 +62,7 @@ public enum Strategy {
 	 */
 	public static Strategy randomSelectStrategy() throws Exception{
 		Random random = new Random();
-		switch(random.nextInt(Params.NUMOFREGION)){
+		switch(random.nextInt(4)){
 		case 0:
 			return CC;
 		case 1:
