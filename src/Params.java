@@ -31,6 +31,9 @@ public class Params {
 		
 		// the number of Region
 		public final static int NUMOFREGION = 4;
+
+		// the number of Strategy
+		public final static int NUMOFSTRATEGY = 4;
 		
 		// the total time tick
 		public final static int TOTALTICK = 200;
