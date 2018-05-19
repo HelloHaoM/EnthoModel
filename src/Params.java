@@ -55,42 +55,37 @@ public class Params {
 					IMMIGRANTCHANGECOOPERATEWITHSAME = 0.50;
 					break;
 				case 1:
-					// round two, increase the initial-PTR
-					// increase cost-of-giving
-					// increase gain of receiving
+					// round two, increase the death-rate
 					MUTATIONRATE = 0.005;
-					INITIALPTR = 0.25;
-					DEATHRATE = 0.10;
-					COSTOFGIVING = 0.05;
-					GAINOFRECEIVING = 0.10;
+					INITIALPTR = 0.12;
+					DEATHRATE = 0.20;
+					COSTOFGIVING = 0.01;
+					GAINOFRECEIVING = 0.03;
 					IMMIGRANTSPERDAY = 1;
 					IMMIGRANTCHANGECOOPERATEWITHDIFFERENT = 0.50;
 					IMMIGRANTCHANGECOOPERATEWITHSAME = 0.50;
 					break;
 				case 2:
 					// round three
-					// significantly increase death-rate
-					// increase immigrant-per-day
+					// significantly increase initial-PTR
 					MUTATIONRATE = 0.005;
-					INITIALPTR = 0.12;
-					DEATHRATE = 0.20;
+					INITIALPTR = 0.30;
+					DEATHRATE = 0.10;
 					COSTOFGIVING = 0.01;
 					GAINOFRECEIVING = 0.03;
-					IMMIGRANTSPERDAY = 5;
+					IMMIGRANTSPERDAY = 1;
 					IMMIGRANTCHANGECOOPERATEWITHDIFFERENT = 0.50;
 					IMMIGRANTCHANGECOOPERATEWITHSAME = 0.50;
 					break;
 				case 3:
 					// round four
 					// significantly increase mutation-rate
-					// increase initial-PTR
-					// increase immigrant-per-day
 					MUTATIONRATE = 0.10;
-					INITIALPTR = 0.20;
+					INITIALPTR = 0.12;
 					DEATHRATE = 0.10;
 					COSTOFGIVING = 0.01;
 					GAINOFRECEIVING = 0.03;
-					IMMIGRANTSPERDAY = 5;
+					IMMIGRANTSPERDAY = 1;
 					IMMIGRANTCHANGECOOPERATEWITHDIFFERENT = 0.50;
 					IMMIGRANTCHANGECOOPERATEWITHSAME = 0.50;
 					break;
@@ -98,15 +93,14 @@ public class Params {
 					// round five
 					// significantly increase cooperate-with-different
 					// decrease cooperate-with-same
-					// increase initial-PTR
 					MUTATIONRATE = 0.005;
 					INITIALPTR = 0.12;
 					DEATHRATE = 0.10;
 					COSTOFGIVING = 0.01;
 					GAINOFRECEIVING = 0.03;
-					IMMIGRANTSPERDAY = 5;
+					IMMIGRANTSPERDAY = 1;
 					IMMIGRANTCHANGECOOPERATEWITHDIFFERENT = 0.80;
-					IMMIGRANTCHANGECOOPERATEWITHSAME = 0.40;
+					IMMIGRANTCHANGECOOPERATEWITHSAME = 0.20;
 					break;
 			}
 		}
