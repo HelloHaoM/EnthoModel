@@ -23,6 +23,8 @@ public class World {
 			blockWorld[i] = rowBlock;
 			for(int j = 0; j < size; j++){
 				rowBlock[j] = new Block(this);
+				// add advantage to this block
+				rowBlock[j].addAdvantage();
 				emptyBlocks.add(rowBlock[j]);
 			}
 		}

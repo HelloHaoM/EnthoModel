@@ -41,6 +41,9 @@ public class Params {
 		// the size of the world
 		public final static int SIZE = 50;
 
+		// the advantage of block
+		public final static double ADVANTAGE = 0.20;
+
 		public static void setParams(int i){
 			switch (i) {
 				case 0:

@@ -13,6 +13,8 @@ public class Block {
 	private ArrayList<Block> neighbors = new ArrayList<Block>();
 	private Agent owner;
 	private World world;
+	// for Extension 2, some of blocks may have advantages
+	private double advantage = 0;
 	
 	public Block(World world){
 		this.world = world;
@@ -24,7 +26,7 @@ public class Block {
 		return false;
 	}
 	
-	public Agent getOwner() {
+	public Agent getOwner(){
 		return owner;
 	}
 	
@@ -40,6 +42,19 @@ public class Block {
 	public void setAgent(Agent agent){
 		owner = agent;
 		world.setOccupied(this);
+	}
+
+	public double getAdvantage(){
+		return advantage;
+	}
+
+	// the function to add advantage to a block
+	public void addAdvantage(){
+		Random random = new Random();
+		// each block will have 20% to become more advantageous 
+		if (random.nextDouble() < 0.2) {
+			this.advantage += Params.ADVANTAGE;
+		}
 	}
 	
 	/**
