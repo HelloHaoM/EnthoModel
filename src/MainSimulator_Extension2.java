@@ -17,21 +17,21 @@ import java.util.ArrayList;
  * @author Yudong
  * 
  */
-public class MainSimulator {
-	
+public class MainSimulator_Extension2 {
+	// this main function is for extension2
 	public static void main(String[] args){
 
         // bool value for extension2
-        boolean extension2 = false;
+        boolean extension2 = true;
 		World world = new World(extension2);
 		Controller controller = new Controller(world);
 		int tick = 0;
 		try{
-			FileWriter csv = new FileWriter(System.getProperty("user.dir") + "/result.csv");
+			FileWriter csv = new FileWriter(System.getProperty("user.dir") + "/result_extension2.csv");
             for (int a = 0; a < 5; a++) {
             	System.out.println(a+1 + " test start");
                 // setting parametres of each round 
-                Params.setParams(a);
+                //Params.setParams(a);
                 // add parameters to the csv file
                 addParams2csv(csv);
                 // add title to the csv file
@@ -76,6 +76,8 @@ public class MainSimulator {
         csv.append(",");
         csv.append("number-of-region");
         csv.append(",");
+        csv.append("advantages");
+        csv.append(",");
         csv.append("\n");
 		csv.append(Double.toString(Params.IMMIGRANTSPERDAY));
         csv.append(",");
@@ -94,6 +96,8 @@ public class MainSimulator {
         csv.append(Double.toString(Params.IMMIGRANTCHANGECOOPERATEWITHDIFFERENT));
         csv.append(",");
         csv.append(Double.toString(Params.NUMOFREGION));
+        csv.append(",");
+        csv.append(Double.toString(Params.ADVANTAGE));
         csv.append("\n");
                 
 	}

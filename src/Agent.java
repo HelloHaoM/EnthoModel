@@ -15,13 +15,14 @@ public class Agent {
 	private Region region;
 	private Block block;
 	private Controller controller;
-	private double ptr = Params.INITIALPTR;
+	private double ptr;
 	
 	public Agent(Strategy strategy, Region region, Block block, Controller controller){
 		this.strategy = strategy;
 		this.region = region;
 		this.block = block;
 		this.controller = controller;
+		this.ptr = Params.INITIALPTR + block.getAdvantage();
 	}
 	
 	public Region getRegion(){

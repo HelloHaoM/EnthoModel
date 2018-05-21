@@ -16,13 +16,16 @@ public class World {
 	private ArrayList<Agent> worldAgents = new ArrayList<Agent>();
 	
 	
-	public World(){
+	public World(boolean extension2){
 		// Create a 2-dimension empty block world
 		for(int i = 0; i < size; i++){
 			Block[] rowBlock = new Block[size];
 			blockWorld[i] = rowBlock;
 			for(int j = 0; j < size; j++){
 				rowBlock[j] = new Block(this);
+				if (extension2) {
+					rowBlock[j].addAdvantage();
+				}
 				emptyBlocks.add(rowBlock[j]);
 			}
 		}

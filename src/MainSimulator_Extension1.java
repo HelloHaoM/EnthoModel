@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 /**
  * A simulator to simulate the model's behavior
- * A CSV file will be outputted
+ * A CSV file will be generated
  * 
  * @author haomai
  * @author Yudong
  * 
  */
-public class MainSimulator {
+public class MainSimulator_Extension1 {
 	
 	public static void main(String[] args){
 
@@ -27,11 +27,11 @@ public class MainSimulator {
 		Controller controller = new Controller(world);
 		int tick = 0;
 		try{
-			FileWriter csv = new FileWriter(System.getProperty("user.dir") + "/result.csv");
+			FileWriter csv = new FileWriter(System.getProperty("user.dir") + "/result_extension1.csv");
             for (int a = 0; a < 5; a++) {
             	System.out.println(a+1 + " test start");
-                // setting parametres of each round 
-                Params.setParams(a);
+                // setting colour(region) parametres for each round 
+                Params.setParamsRegion(a);
                 // add parameters to the csv file
                 addParams2csv(csv);
                 // add title to the csv file

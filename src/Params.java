@@ -30,7 +30,7 @@ public class Params {
 		public static double IMMIGRANTCHANGECOOPERATEWITHDIFFERENT = 0.50;
 		
 		// the number of Region
-		public final static int NUMOFREGION = 4;
+		public static int NUMOFREGION = 4;
 
 		// the number of Strategy
 		public final static int NUMOFSTRATEGY = 4;
@@ -41,6 +41,15 @@ public class Params {
 		// the size of the world
 		public final static int SIZE = 50;
 
+		// the advantage of block
+		public final static double ADVANTAGE = 0.20;
+
+		// setting colour parameters for 5 rounds experiments for Extension1
+		public static void setParamsRegion(int i){
+			NUMOFREGION = 4 + i;
+		}
+
+		// setting parameters for 5 rounds experiments for MainSimulator
 		public static void setParams(int i){
 			switch (i) {
 				case 0:
