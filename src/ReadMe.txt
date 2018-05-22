@@ -1,3 +1,6 @@
+Yudong Gao - 886576 
+Hao Mai - 895890
+
 1. Commands for Running the Replication Model:
 		javac MainSimulator.java
 		java MainSimulator
