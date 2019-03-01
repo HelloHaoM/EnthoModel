@@ -9,3 +9,36 @@ The system will have four steps:
 * Reproduction. Each agent has the probability (PTR) to reproduce its offspring in an adjacent vacant location. The offspring has the same traits as its parent while it has a MUTATION-RATE to mutate its traits.
 
 * Death. Each agent has a DEATH-RATE of dying. If it dies, the location will become vacant
+
+## Prerequisites
+
+* Java
+
+## Running
+
+1. The basic simulation
+
+```
+javac MainSimulator.java
+```
+```
+java MainSimulator
+```
+
+2. The extension 1 (More Colors)
+```
+javac MainSimulator_Extension1.java
+```
+```
+java MainSimulator_Extension1
+```
+
+3. The extension 2 (With Initial Number)
+```
+javac MainSimulator_Extension2.java
+```
+```
+java MainSimulator_Extension2
+```
+
+
